@@ -3,8 +3,8 @@ import { theme } from '../config/theme';
 import './globals.css';
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Prello',
+  description: "Trello's little cousin",
 };
 
 export default function RootLayout({ children }: { children: any }) {
@@ -19,7 +19,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme} defaultColorScheme="auto">
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

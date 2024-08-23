@@ -1,4 +1,4 @@
-import { Anchor, Text, Title } from '@mantine/core';
+import { Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 
 export function Welcome() {
@@ -7,17 +7,17 @@ export function Welcome() {
       <Title className={classes.title} ta="center" mt={100}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Mantine
+          Prello
         </Text>
       </Title>
 
       <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
-        This starter Next.js project includes a minimal setup for server side rendering, if you want
-        to learn more on Mantine + Next.js integration follow{' '}
-        <Anchor href="https://mantine.dev/guides/next/" size="lg">
-          this guide
-        </Anchor>
-        . To get started edit page.tsx file.
+        Prello is here to help you manage your tasks without the stress.
+        <br />
+        Create boards, organize your to-dos, and keep track of everything effortlessly.
+        <br />
+        Whether you&apos;re planning a project or just making sure you don&apos;t forget to feed the
+        cat, Prello&apos;s got your back!
       </Text>
     </>
   );
