@@ -1,3 +1,5 @@
+import { slate } from 'tailwindcss/colors';
+
 export const appConfig = {
   colors: {
     primary: {
@@ -13,5 +15,6 @@ export const appConfig = {
       900: '#052229',
       950: '#031317',
     },
+    gray: slate,
   },
 };

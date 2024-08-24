@@ -1,14 +1,12 @@
 import { Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
+import Logo from '../Logo/Logo';
 
 export function Welcome() {
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
-        Welcome to{' '}
-        <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Prello
-        </Text>
+        Welcome to <Logo className="text-5xl md:text-[5rem]" />
       </Title>
 
       <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">

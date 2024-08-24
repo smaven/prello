@@ -11,6 +11,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: appConfig.colors,
+      fontFamily: {
+        display: ['var(--font-display)'],
+      },
     },
   },
   plugins: [],

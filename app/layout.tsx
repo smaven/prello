@@ -1,6 +1,14 @@
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { Pacifico } from 'next/font/google';
 import { theme } from '../config/theme';
 import './globals.css';
+
+const pacifico = Pacifico({
+  subsets: ['latin'],
+  weight: ['400'],
+  display: 'swap',
+  variable: '--font-display',
+});
 
 export const metadata = {
   title: 'Prello',
@@ -9,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: any }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${pacifico.variable}`}>
       <head>
         <ColorSchemeScript />
         <link rel="shortcut icon" href="/favicon.svg" />

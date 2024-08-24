@@ -1,6 +1,12 @@
 'use client';
 
-import { ActionIcon, Group, MantineColorScheme, useMantineColorScheme } from '@mantine/core';
+import {
+  ActionIcon,
+  Group,
+  MantineColorScheme,
+  Skeleton,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { IconDeviceDesktop, IconMoonFilled, IconProps, IconSunFilled } from '@tabler/icons-react';
 import { JSX, cloneElement, useCallback, useMemo } from 'react';
 import { useIsClient } from '@/hooks/use-is-client';
@@ -24,13 +30,13 @@ export function ColorSchemeToggle() {
   }, [colorScheme, setColorScheme]);
 
   return (
-    <Group justify="center" mt="xl">
+    <Group justify="center">
       {isClient ? (
         <ActionIcon size={40} variant="default" onClick={toggleColorScheme} aria-label={label}>
           {cloneElement<IconProps>(iconEl, { className: 'h-5 w-5' })}
         </ActionIcon>
       ) : (
-        <div className="h-10"></div>
+        <Skeleton className="h-10 w-10" />
       )}
     </Group>
   );
