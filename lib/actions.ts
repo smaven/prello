@@ -1,8 +1,10 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import { wait } from './utils';
+import { prisma } from './db';
+import { CacheKey, loggedInUserId } from './loaders';
 
 const createBoardSchema = z.object({
   name: z.string(),
@@ -24,11 +26,24 @@ export async function createBoard(prevState: any, formData: FormData) {
   }
   const { name, slug } = validatedFields.data;
 
-  await wait(1000);
-  console.log('Create board', name, slug);
+  const existingBoard = await prisma.board.findFirst({
+    where: { slug },
+  });
+  if (existingBoard) {
+    return {
+      errors: { slug: 'Slug already exists' },
+    };
+  }
 
-  // TODO: revalidate boards
+  await prisma.board.create({
+    data: {
+      name,
+      slug,
+      user: { connect: { id: loggedInUserId } },
+    },
+  });
 
+  revalidateTag(CacheKey.Boards);
   redirect('/boards');
 }
 
@@ -48,10 +63,10 @@ export async function deleteBoard(prevState: any, formData: FormData) {
   }
   const { slug } = validatedFields.data;
 
-  await wait(1000);
-  console.log('Delete board', slug);
+  await prisma.board.delete({
+    where: { slug },
+  });
 
-  // TODO: revalidate boards
-
+  revalidateTag(CacheKey.Boards);
   return { errors: {} };
 }

@@ -6,10 +6,11 @@ import { IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
+import { Board } from '@prisma/client';
 import { deleteBoard } from '@/lib/actions';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
-export default function BoardCard({ slug, title }: { slug: string; title: string }) {
+export default function BoardCard({ slug, name }: Board) {
   const [_, deleteAction] = useFormState(deleteBoard, { errors: {} });
 
   return (
@@ -20,17 +21,17 @@ export default function BoardCard({ slug, title }: { slug: string; title: string
         radius="md"
         className="flex justify-center gap-4 hover:opacity-80"
       >
-        <Text>{title}</Text>
+        <Text>{name}</Text>
         <form action={deleteAction}>
           <input type="hidden" name="slug" value={slug} />
-          <DeleteButton title={title} />
+          <DeleteButton name={name} />
         </form>
       </Card>
     </Link>
   );
 }
 
-function DeleteButton({ title }: { title: string }) {
+function DeleteButton({ name }: Pick<Board, 'name'>) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { pending } = useFormStatus();
   const [opened, { open, close }] = useDisclosure(false);
@@ -64,7 +65,7 @@ function DeleteButton({ title }: { title: string }) {
       <ConfirmModal
         opened={opened}
         onClose={close}
-        content={`Are you sure you want to delete "${title}"? This action cannot be undone.`}
+        content={`Are you sure you want to delete "${name}"? This action cannot be undone.`}
         onConfirm={confirmDeleteHandler}
       />
     </>

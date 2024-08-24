@@ -4,7 +4,7 @@ import { TaskStatus } from '../lib/types';
 
 const prisma = new PrismaClient();
 
-export const johnDoeId = '25ea6d71-5a1d-4d00-9b94-b9037cee5460';
+const johnDoeId = '25ea6d71-5a1d-4d00-9b94-b9037cee5460';
 
 async function main() {
   // eslint-disable-next-line no-console
