@@ -1,0 +1,19 @@
+name: prello
+services:
+  db:
+    image: postgres:16.4
+    ports:
+      - 41001:5432
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=prello
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - ./docker-volumes/postgres-data:/var/lib/postgresql/data
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge
