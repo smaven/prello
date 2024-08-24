@@ -7,7 +7,7 @@ import { prisma } from './db';
 import { CacheKey, loggedInUserId } from './loaders';
 
 const createBoardSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, { message: 'Name must be at least 1 character long' }),
   slug: z.string().regex(/^[a-z0-9-]+$/, {
     message: 'Slug must contain only lowercase letters, numbers and dashes',
   }),
