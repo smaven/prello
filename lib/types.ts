@@ -11,8 +11,18 @@ export type Task = PrismaTask & {
   status: TaskStatus;
 };
 
+export type TaskInStatusGroup = Omit<
+  Task,
+  'boardSlug' | 'dueDate' | 'createdAt' | 'updatedAt' | 'status'
+> & {
+  status: TaskStatus;
+  dueDate: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TaskByStatus = {
   status: TaskStatus;
   taskCount: number;
-  tasks: Omit<Task, 'boardSlug'>[];
+  tasks: TaskInStatusGroup[];
 };

@@ -31,7 +31,7 @@ export async function createBoard(prevState: any, formData: FormData) {
   });
   if (existingBoard) {
     return {
-      errors: { slug: 'Slug already exists' },
+      errors: { slug: 'Slug already exists', name: undefined },
     };
   }
 
