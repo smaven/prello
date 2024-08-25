@@ -27,7 +27,7 @@ export default function TaskCard({ task, onTaskClick }: TaskProps) {
   return (
     <button
       type="button"
-      className="flex items-center rounded-md bg-white py-4 pl-4 dark:bg-dark-700"
+      className="dark:bg-dark-700 flex items-center rounded-md bg-white py-4 pl-4"
       onClick={handleTaskCardClick}
     >
       <div className="flex grow flex-col text-start">
@@ -50,23 +50,24 @@ export default function TaskCard({ task, onTaskClick }: TaskProps) {
 
 function TaskDueDate({ dueDate, className }: { dueDate: string; className: string }) {
   const isOverdue = dayjs(dueDate).isBefore(dayjs(), 'day');
+  const isDueToday = dayjs(dueDate).isSame(dayjs(), 'day');
   return (
     <span
       className={cn(
         'flex items-center gap-2',
-        isOverdue ? 'text-red-500 dark:text-red-400' : 'text-gray-700 dark:text-dark-200',
+        isOverdue ? 'text-red-500 dark:text-red-400' : 'dark:text-dark-200 text-gray-700',
         className
       )}
     >
       <IconHourglass size={16} />
-      <Text className="text-xs">Due {dayjs(dueDate).fromNow()}</Text>
+      <Text className="text-xs">Due {isDueToday ? 'today' : dayjs(dueDate).fromNow()}</Text>
     </span>
   );
 }
 
 function TaskCreatedAt({ createdAt, className }: { createdAt: string; className: string }) {
   return (
-    <span className={cn('flex items-center gap-2', 'text-gray-700 dark:text-dark-200', className)}>
+    <span className={cn('flex items-center gap-2', 'dark:text-dark-200 text-gray-700', className)}>
       <IconCalendarEvent size={16} />
       <Text className="text-xs">{dayjs(createdAt).format('MMM D YYYY, h:mm A')}</Text>
     </span>

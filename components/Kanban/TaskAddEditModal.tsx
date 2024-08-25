@@ -4,9 +4,13 @@ import { Button, Modal, ModalProps, Select, Textarea, TextInput } from '@mantine
 import { DateInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { Task, TaskPriority } from '@prisma/client';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { TaskInStatusGroup, TaskStatus } from '@/lib/types';
 import { dayjs } from '@/lib/dayjs';
+import { useUpdateTask } from '@/hooks/api/use-update-task';
+import { useDeleteTask } from '@/hooks/api/use-delete-task';
+import { useCreateTask } from '@/hooks/api/use-create-task';
 
 export type EditTask = Omit<TaskInStatusGroup, 'dueDate' | 'createdAt' | 'updatedAt'> & {
   dueDate: Date;
@@ -60,6 +64,12 @@ export default function TaskAddEditModal({
       },
     },
   });
+  const { boardId } = useParams<{ boardId: string }>();
+  const { mutate: createTask, loading: createLoading } = useCreateTask();
+  const { mutate: deleteTask, loading: deleteLoading } = useDeleteTask();
+  const { mutate: updateTask, loading: updateLoading } = useUpdateTask();
+
+  const loading = createLoading || updateLoading;
 
   useEffect(() => {
     if (initialValues) {
@@ -69,18 +79,19 @@ export default function TaskAddEditModal({
     }
   }, [initialValues, editTask]);
 
-  function handleFormSubmit(values: Partial<EditTask>) {
+  async function handleFormSubmit(values: Partial<EditTask>) {
     if (editTask) {
-      console.log('Editing task', values);
-      return;
+      await updateTask({ boardSlug: boardId, task: values as EditTask });
+    } else {
+      await createTask({ newTask: values as EditTask, boardSlug: boardId });
     }
-
-    console.log('Creating task', values);
+    handleModalClose();
   }
 
-  function handleDeleteTask() {
+  async function handleDeleteTask() {
     if (!editTask) return;
-    console.log('Deleting task', editTask);
+    await deleteTask({ taskId: editTask.id, boardSlug: boardId });
+    handleModalClose();
   }
 
   function handleModalClose() {
@@ -136,11 +147,18 @@ export default function TaskAddEditModal({
 
         <div className="mt-6 flex justify-end gap-4">
           {editTask ? (
-            <Button color="red" onClick={handleDeleteTask}>
+            <Button
+              color="red"
+              onClick={handleDeleteTask}
+              loading={deleteLoading}
+              disabled={loading}
+            >
               Delete
             </Button>
           ) : null}
-          <Button type="submit">{editTask ? 'Update' : 'Create'}</Button>
+          <Button type="submit" loading={loading} disabled={deleteLoading}>
+            {editTask ? 'Update' : 'Create'}
+          </Button>
         </div>
       </form>
     </Modal>

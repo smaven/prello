@@ -48,6 +48,7 @@ export const getTasks = (boardSlug: string) => {
                         'title', title,
                         'description', description,
                         'priority', priority,
+                        'status', status,
                         'dueDate', "dueDate",
                         'createdAt', "createdAt",
                         'updatedAt', "updatedAt"
