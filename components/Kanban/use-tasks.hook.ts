@@ -1,10 +1,10 @@
 import { produce } from 'immer';
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { TaskByStatus, TaskStatus } from '@/lib/types';
 import { useUpdateTask } from '@/hooks/api/use-update-task.hook';
 
-export const useTasks = (initialTasks: TaskByStatus[]) => {
-  const [state, dispatch] = useReducer(tasksReducer, { taskGroups: initialTasks, loading: false });
+export const useTasks = (tasksByStatus: TaskByStatus[]) => {
+  const [state, dispatch] = useReducer(tasksReducer, { taskGroups: tasksByStatus, loading: false });
   const { mutate: updateTask } = useUpdateTask({ skipRefresh: true });
 
   const moveTask = useCallback(
@@ -36,6 +36,10 @@ export const useTasks = (initialTasks: TaskByStatus[]) => {
     [dispatch]
   );
 
+  useEffect(() => {
+    dispatch({ type: TaskActionType.SET_TASKS, payload: tasksByStatus });
+  }, [tasksByStatus]);
+
   return { taskState: state, moveTask };
 };
 
@@ -46,6 +50,9 @@ function tasksReducer(state: TaskState, action: TaskAction): TaskState {
     }
     case TaskActionType.END_MOVE_STATUS: {
       return { ...state, loading: false };
+    }
+    case TaskActionType.SET_TASKS: {
+      return { ...state, taskGroups: action.payload };
     }
     case TaskActionType.MOVE_STATUS: {
       const { taskId, fromStatus, toStatus } = action.payload;
@@ -89,6 +96,7 @@ export enum TaskActionType {
   START_MOVE_STATUS = 'START_MOVE_STATUS',
   END_MOVE_STATUS = 'END_MOVE_STATUS',
   MOVE_STATUS = 'MOVE_STATUS',
+  SET_TASKS = 'SET_TASKS',
 }
 
 export interface MoveStatusPayload {
@@ -110,7 +118,16 @@ export interface EndMutationAction {
   type: TaskActionType.END_MOVE_STATUS;
 }
 
-export type TaskAction = MoveStatusAction | StartMutationAction | EndMutationAction;
+export interface RefreshTasksAction {
+  type: TaskActionType.SET_TASKS;
+  payload: TaskByStatus[];
+}
+
+export type TaskAction =
+  | MoveStatusAction
+  | StartMutationAction
+  | EndMutationAction
+  | RefreshTasksAction;
 
 export interface TaskState {
   loading: boolean;

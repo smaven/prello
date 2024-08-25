@@ -59,14 +59,14 @@ export default function Kanban({ tasks }: KanbanProps) {
     <>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {taskState.taskGroups.map((status) => (
+          {taskState.taskGroups.map((group) => (
             <Container
-              key={status.status}
-              status={status.status}
-              title={status.status}
+              key={group.status}
+              status={group.status}
+              title={group.status}
               onAddItem={handleAddTask}
             >
-              {status.tasks.map((task) => (
+              {group.tasks.map((task) => (
                 <TaskCard key={task.id} task={task} onTaskClick={handleTaskClick} />
               ))}
             </Container>

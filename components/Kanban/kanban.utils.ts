@@ -9,7 +9,7 @@ export const colorByStatus: Map<TaskStatus, { color: string; twClass: string }> 
 ]);
 
 export const colorByPriority: Map<TaskPriority, string> = new Map([
-  [TaskPriority.LOW, 'gray'],
-  [TaskPriority.MEDIUM, 'blue'],
+  [TaskPriority.LOW, 'blue'],
+  [TaskPriority.MEDIUM, 'orange'],
   [TaskPriority.HIGH, 'red'],
 ]);
