@@ -1,4 +1,4 @@
-import { useMutation } from './use-mutation';
+import { useMutation } from './use-mutation.hook';
 
 export function useDeleteTask() {
   return useMutation(async ({ taskId, boardSlug }: { taskId: string; boardSlug: string }) => {

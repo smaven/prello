@@ -8,9 +8,9 @@ import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { TaskInStatusGroup, TaskStatus } from '@/lib/types';
 import { dayjs } from '@/lib/dayjs';
-import { useUpdateTask } from '@/hooks/api/use-update-task';
-import { useDeleteTask } from '@/hooks/api/use-delete-task';
-import { useCreateTask } from '@/hooks/api/use-create-task';
+import { useUpdateTask } from '@/hooks/api/use-update-task.hook';
+import { useDeleteTask } from '@/hooks/api/use-delete-task.hook';
+import { useCreateTask } from '@/hooks/api/use-create-task.hook';
 
 export type EditTask = Omit<TaskInStatusGroup, 'dueDate' | 'createdAt' | 'updatedAt'> & {
   dueDate: Date;

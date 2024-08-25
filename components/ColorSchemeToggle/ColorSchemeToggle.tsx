@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { IconDeviceDesktop, IconMoonFilled, IconProps, IconSunFilled } from '@tabler/icons-react';
 import { JSX, cloneElement, useCallback, useMemo } from 'react';
-import { useIsClient } from '@/hooks/use-is-client';
+import { useIsClient } from '@/hooks/use-is-client.hook';
 
 const iconByScheme: Map<MantineColorScheme, { iconEl: JSX.Element; label: string }> = new Map([
   ['light', { iconEl: <IconSunFilled />, label: 'Light' }],

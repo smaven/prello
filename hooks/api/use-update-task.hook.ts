@@ -1,9 +1,9 @@
-import { NewTaskRequest } from './use-create-task';
-import { useMutation } from './use-mutation';
+import { NewTaskRequest } from './use-create-task.hook';
+import { useMutation, UseMutationOptions } from './use-mutation.hook';
 
 export type UpdateTaskRequest = Partial<NewTaskRequest> & { id: string };
 
-export function useUpdateTask() {
+export function useUpdateTask(options?: UseMutationOptions) {
   return useMutation(
     async ({ task, boardSlug }: { task: UpdateTaskRequest; boardSlug: string }) => {
       const res = await fetch(`/api/board/${boardSlug}/task/${task.id}`, {
@@ -20,6 +20,7 @@ export function useUpdateTask() {
 
       const { data } = await res.json();
       return data;
-    }
+    },
+    options
   );
 }
