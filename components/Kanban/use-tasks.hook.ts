@@ -9,6 +9,9 @@ export const useTasks = (initialTasks: TaskByStatus[]) => {
 
   const moveTask = useCallback(
     async (data: MoveStatusPayload & { boardSlug: string }) => {
+      // If the task is moved to the same status, do nothing
+      if (data.fromStatus === data.toStatus) return;
+
       dispatch({ type: TaskActionType.START_MOVE_STATUS });
       try {
         dispatch({ type: TaskActionType.MOVE_STATUS, payload: data });
