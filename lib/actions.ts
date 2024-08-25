@@ -68,5 +68,6 @@ export async function deleteBoard(prevState: any, formData: FormData) {
   });
 
   revalidateTag(CacheKey.Boards);
+  revalidateTag(slug);
   return { errors: {} };
 }

@@ -1,9 +1,17 @@
-import { getTasks } from '@/lib/loaders';
+import { Title } from '@mantine/core';
+import { getBoard, getTasks } from '@/lib/loaders';
+import Kanban from '@/components/Kanban/Kanban';
 
 export default async function BoardPage({ params }: { params: { boardId: string } }) {
   const { boardId } = params;
-  const tasks = await getTasks(boardId);
-  console.log(tasks);
+  const [board, tasks] = await Promise.all([getBoard(boardId), getTasks(boardId)]);
 
-  return <h1>Board</h1>;
+  return (
+    <div>
+      <Title className="text-2xl">{board.name}</Title>
+      <section className="mt-10">
+        <Kanban tasks={tasks} />
+      </section>
+    </div>
+  );
 }

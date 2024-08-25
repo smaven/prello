@@ -26,6 +26,15 @@ export const getBoards = () => {
   )();
 };
 
+export const getBoard = (boardSlug: string) => {
+  const userId = loggedInUserId;
+  return unstable_cache(
+    async () => prisma.board.findUniqueOrThrow({ where: { slug: boardSlug } }),
+    [userId, CacheKey.Boards, boardSlug],
+    { tags: [boardSlug], revalidate: 60 * 60 }
+  )();
+};
+
 export const getTasks = (boardSlug: string) => {
   const userId = loggedInUserId;
   return unstable_cache(
@@ -51,7 +60,7 @@ export const getTasks = (boardSlug: string) => {
       `;
       return tasks;
     },
-    [userId, boardSlug, CacheKey.Tasks],
+    [userId, CacheKey.Boards, boardSlug, CacheKey.Tasks],
     { tags: [boardSlug], revalidate: 60 * 60 }
   )();
 };
