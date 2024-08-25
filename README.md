@@ -1,37 +1,54 @@
 # prello
 
-This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](https://mantine.dev/).
-If you want to use pages router instead, see [next-pages-template](https://github.com/mantinedev/next-pages-template).
+Trello's tiny cousin.
 
-## Features
+## Technologies used
 
-This template comes with the following features:
+- Next.js v14
+- Prisma
+- PostgreSQL
+- Docker
+- dnd-kit
+- Mantine
+- Tailwind CSS
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
-- [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+## Local development
 
-## npm scripts
+### Prerequisites
 
-### Build and dev scripts
+- Node.js v20
+- PNPM v9
+- Docker
+- Docker Compose
+
+### Setup
+
+1. Clone the repository
+1. Install dependencies with `pnpm install`
+1. Start docker containers with `docker-compose up -d`
+1. Setup environment variables: `cp .env.example .env`
+1. Run migrations with `pnpm prisma migrate dev`
+1. Seed database with `pnpm prisma db seed`
+1. Start the development server with `pnpm dev`
+
+### npm scripts
+
+#### Build and dev scripts
 
 - `dev` – start dev server
 - `build` – bundle application for production
 - `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
 
-### Testing scripts
+#### Testing scripts
 
 - `typecheck` – checks TypeScript types
 - `lint` – runs ESLint
 - `prettier:check` – checks files with Prettier
+- `prettier:write` – formats all files with Prettier
 - `jest` – runs jest tests
 - `jest:watch` – starts jest watch
 - `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
 
-### Other scripts
+## Screenshots
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+![Prello screenshots](https://github.com/user-attachments/assets/43d0f772-4cb2-46a9-8eaf-63277fe93787)

@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { prisma } from './db';
 import { TaskByStatus, TaskStatus } from './types';
 
-// TEMP
+// TODO: Once authentication is implemented, this will not be hardcoded
 export const loggedInUserId = '25ea6d71-5a1d-4d00-9b94-b9037cee5460';
 
 export enum CacheKey {
