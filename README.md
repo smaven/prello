@@ -2,6 +2,8 @@
 
 Trello's tiny cousin.
 
+![Prello screenshots](https://github.com/user-attachments/assets/43d0f772-4cb2-46a9-8eaf-63277fe93787)
+
 ## Technologies used
 
 - Next.js v14
@@ -48,7 +50,3 @@ Trello's tiny cousin.
 - `jest` – runs jest tests
 - `jest:watch` – starts jest watch
 - `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
-
-## Screenshots
-
-![Prello screenshots](https://github.com/user-attachments/assets/43d0f772-4cb2-46a9-8eaf-63277fe93787)
