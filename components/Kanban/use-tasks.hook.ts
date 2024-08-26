@@ -5,7 +5,7 @@ import { useUpdateTask } from '@/hooks/api/use-update-task.hook';
 
 export const useTasks = (tasksByStatus: TaskByStatus[]) => {
   const [state, dispatch] = useReducer(tasksReducer, { taskGroups: tasksByStatus, loading: false });
-  const { mutate: updateTask } = useUpdateTask({ skipRefresh: true });
+  const { mutate: updateTask } = useUpdateTask();
 
   const moveTask = useCallback(
     async (data: MoveStatusPayload & { boardSlug: string }) => {
