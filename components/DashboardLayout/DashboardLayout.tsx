@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   AppShell,
   Burger,
@@ -17,8 +17,12 @@ import Logo from '../Logo/Logo';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 
 export default function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
   const pathname = usePathname();
+
+  useEffect(() => {
+    close();
+  }, [pathname]);
 
   return (
     <AppShell
